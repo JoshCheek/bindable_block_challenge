@@ -8,43 +8,26 @@ class BindableBlock
       new(args, instance_method).call
     end
 
-    def call
-      result
-    end
-
-    private
-
-    attr_reader :args, :parameters, :result
+    attr_accessor :args, :instance_method
 
     def initialize(args, instance_method)
-      @result, @args, @parameters = [], args, instance_method.parameters.map(&:first)
-      track_if_has_rest
-      parameters.delete :rest
-      remove_block
-      take num_required
-      parameters.delete :req
-      take 1 while parameters.shift && args.any?
-      take args.size if has_rest?
+      self.args, self.instance_method = args, instance_method
     end
 
-    def num_required
-      parameters.count { |param| param == :req }
-    end
-
-    def take(n)
-      n.times { result << args.shift }
-    end
-
-    def remove_block
-      parameters.pop if parameters.last == :block
-    end
-
-    def track_if_has_rest
-      @has_splat = parameters.any? { |param| param == :rest }
-    end
-
-    def has_rest?
-      @has_splat
+    def call
+      # FILL ME IN:
+      # I need to match the arguments I was given
+      # up to the arguments the method expects.
+      # (procs don't care about arity, methods/lambdas do.
+      # Since we had to translate our proc into a method,
+      # we need to match the arguments up in order to retain
+      # the expected behaviour.
+      #
+      # HINT:
+      #
+      # lambda { |a, b=1, *c, &d| }.parameters
+      #   # => [[:req, :a], [:opt, :b], [:rest, :c], [:block, :d]]
+      args
     end
   end
 
