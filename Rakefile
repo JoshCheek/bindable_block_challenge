@@ -1,2 +1,3 @@
-#!/usr/bin/env rake
-require "bundler/gem_tasks"
+desc 'run specs'
+task(:rspec) { sh 'rspec' }
+task default: :rspec
