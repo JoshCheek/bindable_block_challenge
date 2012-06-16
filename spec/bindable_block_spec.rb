@@ -29,7 +29,7 @@ describe BindableBlock do
   end
 
   describe 'arguments' do
-    specify "when given complex arguments, it matches that shit up right" do
+    specify "when given complex arguments, it matches that shit right up" do
       proc  = Proc.new { |a, b, c=1, d=2, *e, f, &g| [a,b,c,d,e,f,(g&&g.call)] }
       block = BindableBlock.new(klass, &proc).bind(instance)
       block.call.should == proc.call
