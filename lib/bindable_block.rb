@@ -2,7 +2,7 @@ require "bindable_block/version"
 
 class BindableBlock
 
-  # match args to arity, since instance_method has lambda properties
+  # Your challenge is to make this class work correctly (see readme for details)
   class ArgAligner
     def self.align(args, instance_method)
       new(args, instance_method).call
@@ -15,22 +15,12 @@ class BindableBlock
     end
 
     def call
-      # FILL ME IN:
-      # I need to match the arguments I was given
-      # up to the arguments the method expects.
-      # (procs don't care about arity, methods/lambdas do.
-      # Since we had to translate our proc into a method,
-      # we need to match the arguments up in order to retain
-      # the expected behaviour.
-      #
-      # HINT:
-      #
-      # lambda { |a, b=1, *c, &d| }.parameters
-      #   # => [[:req, :a], [:opt, :b], [:rest, :c], [:block, :d]]
       args
     end
   end
 
+
+  # =====  You really shouldn't need to understand anything below this line  =====
 
   def initialize(klass, &block)
     @original_block  = block
