@@ -41,6 +41,12 @@ describe BindableBlock do
       block.call(:a,:b,:c,:d,:e,:f).should == proc.call(:a,:b,:c,:d,:e,:f)
       block.call(:a,:b,:c,:d,:e,:f){:g}.should == proc.call(:a,:b,:c,:d,:e,:f){:g}
       block.call(:a,:b,:c,:d,:e,:f,:g){:h}.should == proc.call(:a,:b,:c,:d,:e,:f,:g){:h}
+
+      proc = Proc.new { |a, b| [a, b] }
+      block = BindableBlock.new(klass, &proc).bind(instance)
+      block.call(:a).should == proc.call(:a)
+      block.call(:a,:b).should == proc.call(:a,:b)
+      block.call(:a,:b,:c).should == proc.call(:a,:b,:c)
     end
   end
 end
